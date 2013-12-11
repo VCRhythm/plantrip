@@ -5,16 +5,18 @@ class MarketsController < ApplicationController
   # GET /markets.json
   def index
     @markets = Market.all
-		@hash = Gmaps4rails.build_markers(@markets) do |market, marker|
-			marker.lat market.latitude
-			marker.lng market.longitude
-			marker.title market.name
-		end
+		fill_markers
   end
 
 	def import
 		Market.import(params[:file])
 		redirect_to root_url, note: "Markets updated."
+	end
+
+	def locate
+		@local_address = "20001" #request.location.address
+		@markets = Market.near(@local_address, 2) 
+		fill_markers
 	end
 
   # GET /markets/1
@@ -76,6 +78,14 @@ class MarketsController < ApplicationController
     def set_market
       @market = Market.find(params[:id])
     end
+		
+		def fill_markers
+			@hash = Gmaps4rails.build_markers(@markets) do |market, marker|
+				marker.lat market.latitude
+				marker.lng market.longitude
+				marker.title market.name
+			end
+		end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def market_params

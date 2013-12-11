@@ -40,6 +40,14 @@
 #
 
 class Market < ActiveRecord::Base
+	
+	reverse_geocoded_by :latitude, :longitude
+	after_validation :reverse_geocode
+
+	def full_address
+		"#{address}, #{zipcode}, #{city}, #{country}"
+	end
+
 	def self.import(file)
 		CSV.foreach(file.path, headers:true) do |row|		
 			market = find_by_id(row["id"]) || new
