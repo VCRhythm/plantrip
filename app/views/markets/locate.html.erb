@@ -3,80 +3,35 @@
 
 <h1>Listing markets</h1>
 
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Website</th>
-      <th>Street</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zip</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th>Location</th>
-      <th>Credit</th>
-      <th>Bakedgoods</th>
-      <th>Maple</th>
-      <th>Meat</th>
-      <th>Nursery</th>
-      <th>Nuts</th>
-      <th>Plants</th>
-      <th>Poultry</th>
-      <th>Prepared</th>
-      <th>Soap</th>
-      <th>Trees</th>
-      <th>Wine</th>
-      <th>Last Updated</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
+<div class="row">
+	
+	<div class="col-md-6">
+		<div id="map" style="height:400px;" ></div>
+	</div>
 
-  <tbody>
-    <% @markets.each do |market| %>
-      <tr>
-        <td><%= market.name %></td>
-        <td><%= market.website %></td>
-        <td><%= market.street %></td>
-        <td><%= market.city %></td>
-        <td><%= market.state %></td>
-        <td><%= market.zip %></td>
-        <td><%= market.latitude %></td>
-        <td><%= market.longitude %></td>
-        <td><%= market.location %></td>
-        <td><%= market.credit %></td>
-        <td><%= market.bakedgoods %></td>
-        <td><%= market.maple %></td>
-        <td><%= market.meat %></td>
-        <td><%= market.nursery %></td>
-        <td><%= market.nuts %></td>
-        <td><%= market.plants %></td>
-        <td><%= market.poultry %></td>
-        <td><%= market.prepared %></td>
-        <td><%= market.soap %></td>
-        <td><%= market.trees %></td>
-        <td><%= market.wine %></td>
-        <td><%= market.updatetime %></td>
-        <td><%= link_to 'Show', market %></td>
-        <td><%= link_to 'Edit', edit_market_path(market) %></td>
-        <td><%= link_to 'Destroy', market, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+	<div class="col-md-6">
+	<table>
+ 	 <thead>
+ 	  <tr>
+     <th>Name</th>
+     <th>Address</th>
+ 	  </tr>
+ 	 </thead>
 
-<div style='width:800px;'>
-	<div id="map" style='width: 800px; height:400px;'></div>
+ 	 <tbody>
+    	 <% @markets.each do |market| %>
+      	 <tr>
+        	 <td><%= link_to market.name, market.website %></td>
+     		   <td><%= market.full_address %></td>
+   		   </tr>
+ 		   <% end %>
+ 		 </tbody>
+		</table>
+	</div>
+
 </div>
 
 <br>
-
-<%= form_tag import_markets_path, multipart:true do%>
-	<%= file_field_tag :file %>
-	<%= submit_tag "Import" %>
-<% end %>
 
 <script type="text/javascript">
 	handler = Gmaps.build('Google');
@@ -84,5 +39,6 @@
 		markers = handler.addMarkers(<%=raw @hash.to_json %>);
 		handler.bounds.extendWith(markers);
 		handler.fitMapToBounds();
+		handler.addCircles(<%=raw @circles.to_json %>);
 	});
 </script>

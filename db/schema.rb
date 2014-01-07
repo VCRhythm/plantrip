@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131211170257) do
+ActiveRecord::Schema.define(version: 20131223223519) do
+
+  create_table "farms", force: true do |t|
+    t.string   "name"
+    t.string   "location"
+    t.string   "address"
+    t.string   "city"
+    t.string   "state"
+    t.integer  "zip"
+    t.string   "county"
+    t.string   "country"
+    t.string   "owner"
+    t.string   "phone"
+    t.string   "certifications"
+    t.string   "website"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.float    "longitude"
+    t.float    "latitude"
+  end
 
   create_table "markets", force: true do |t|
     t.string   "name"

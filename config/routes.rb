@@ -1,4 +1,8 @@
 Marketfinder::Application.routes.draw do
+  resources :farms do
+		collection{ post :import}
+	end
+
   resources :markets do
 		collection{ post :import}
 	end

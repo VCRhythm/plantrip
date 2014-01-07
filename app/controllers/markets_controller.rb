@@ -15,8 +15,10 @@ class MarketsController < ApplicationController
 
 	def locate
 		@local_address = "20001" #request.location.address
-		@markets = Market.near(@local_address, 2) 
+		@markets = Market.near(@local_address, 1) 
+		@farms = Farm.where.not(latitude: '').near(@local_address, 100)		
 		fill_markers
+		fill_circles
 	end
 
   # GET /markets/1
@@ -86,6 +88,13 @@ class MarketsController < ApplicationController
 				marker.title market.name
 			end
 		end
+
+		def fill_circles
+			@circles = Array.new
+			@farms.each do |farm|
+		  	@circles << {lat: farm.latitude, lng: farm.longitude, radius: 5000}
+			end
+		end	
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def market_params

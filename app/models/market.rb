@@ -45,7 +45,7 @@ class Market < ActiveRecord::Base
 	after_validation :reverse_geocode
 
 	def full_address
-		"#{address}, #{zipcode}, #{city}, #{country}"
+		"#{street}, #{city}, #{state} #{zip}"
 	end
 
 	def self.import(file)
