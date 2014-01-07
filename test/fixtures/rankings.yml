@@ -1,0 +1,23 @@
+# == Schema Information
+#
+# Table name: rankings
+#
+#  id         :integer          not null, primary key
+#  rank       :integer
+#  trip_id    :integer
+#  market_id  :integer
+#  created_at :datetime
+#  updated_at :datetime
+#
+
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  rank: 1
+  trip_id: 1
+  market_id: 1
+
+two:
+  rank: 1
+  trip_id: 1
+  market_id: 1

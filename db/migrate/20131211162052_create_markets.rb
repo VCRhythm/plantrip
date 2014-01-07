@@ -2,6 +2,8 @@ class CreateMarkets < ActiveRecord::Migration
   def change
     create_table :markets do |t|
       t.string :name
+			t.text :description
+			t.string :image
       t.string :website
       t.string :street
       t.string :city
@@ -9,23 +11,8 @@ class CreateMarkets < ActiveRecord::Migration
       t.string :zip
       t.float :latitude
       t.float :longitude
-      t.string :location
-      t.boolean :credit
-      t.boolean :cheese
-			t.boolean :bakedgoods
-      t.boolean :maple
-      t.boolean :meat
-      t.boolean :nursery
-      t.boolean :nuts
-      t.boolean :plants
-      t.boolean :poultry
-      t.boolean :prepared
-      t.boolean :soap
-      t.boolean :trees
-      t.boolean :wine
-      t.datetime :updatetime
-
-      t.timestamps
+      
+			t.timestamps
     end
   end
 end

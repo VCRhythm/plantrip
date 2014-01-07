@@ -41,73 +41,13 @@
 </p>
 
 <p>
-  <strong>Location:</strong>
-  <%= @market.location %>
+  <strong>Description:</strong>
+  <%= @market.description %>
 </p>
 
 <p>
-  <strong>Credit:</strong>
-  <%= @market.credit %>
-</p>
-
-<p>
-  <strong>Bakedgoods:</strong>
-  <%= @market.bakedgoods %>
-</p>
-
-<p>
-  <strong>Maple:</strong>
-  <%= @market.maple %>
-</p>
-
-<p>
-  <strong>Meat:</strong>
-  <%= @market.meat %>
-</p>
-
-<p>
-  <strong>Nursery:</strong>
-  <%= @market.nursery %>
-</p>
-
-<p>
-  <strong>Nuts:</strong>
-  <%= @market.nuts %>
-</p>
-
-<p>
-  <strong>Plants:</strong>
-  <%= @market.plants %>
-</p>
-
-<p>
-  <strong>Poultry:</strong>
-  <%= @market.poultry %>
-</p>
-
-<p>
-  <strong>Prepared:</strong>
-  <%= @market.prepared %>
-</p>
-
-<p>
-  <strong>Soap:</strong>
-  <%= @market.soap %>
-</p>
-
-<p>
-  <strong>Trees:</strong>
-  <%= @market.trees %>
-</p>
-
-<p>
-  <strong>Wine:</strong>
-  <%= @market.wine %>
-</p>
-
-<p>
-  <strong>Updatetime:</strong>
-  <%= @market.updatetime %>
+  <strong>Image:</strong>
+  <%= image_tag(@market.image) %>
 </p>
 
 <%= link_to 'Edit', edit_market_path(@market) %> |

@@ -5,8 +5,8 @@
 
 <div>
 <div style="display:inline-block; width:400px;">
-	<div style='width:800px;'>
-		<div id="map" style='width: 800px; height:400px;'></div>
+	<div style='width:400px;'>
+		<div id="map" style='width: 400px; height:400px;'></div>
 	</div>
 </div>
 
@@ -15,27 +15,14 @@
   <thead>
     <tr>
       <th>Name</th>
-      <th>Website</th>
+			<th>Description</th>
+      <th>Image</th>
       <th>Street</th>
       <th>City</th>
       <th>State</th>
       <th>Zip</th>
       <th>Latitude</th>
       <th>Longitude</th>
-      <th>Location</th>
-      <th>Credit</th>
-      <th>Bakedgoods</th>
-      <th>Maple</th>
-      <th>Meat</th>
-      <th>Nursery</th>
-      <th>Nuts</th>
-      <th>Plants</th>
-      <th>Poultry</th>
-      <th>Prepared</th>
-      <th>Soap</th>
-      <th>Trees</th>
-      <th>Wine</th>
-      <th>Last Updated</th>
       <th></th>
       <th></th>
       <th></th>
@@ -45,28 +32,15 @@
   <tbody>
     <% @markets.each do |market| %>
       <tr>
-        <td><%= market.name %></td>
-        <td><%= market.website %></td>
+        <td><%= link_to market.name, market.website %></td>
+				<td><%= market.description %></td>
+        <td><%= image_tag market.image %></td>
         <td><%= market.street %></td>
         <td><%= market.city %></td>
         <td><%= market.state %></td>
         <td><%= market.zip %></td>
         <td><%= market.latitude %></td>
         <td><%= market.longitude %></td>
-        <td><%= market.location %></td>
-        <td><%= market.credit %></td>
-        <td><%= market.bakedgoods %></td>
-        <td><%= market.maple %></td>
-        <td><%= market.meat %></td>
-        <td><%= market.nursery %></td>
-        <td><%= market.nuts %></td>
-        <td><%= market.plants %></td>
-        <td><%= market.poultry %></td>
-        <td><%= market.prepared %></td>
-        <td><%= market.soap %></td>
-        <td><%= market.trees %></td>
-        <td><%= market.wine %></td>
-        <td><%= market.updatetime %></td>
         <td><%= link_to 'Show', market %></td>
         <td><%= link_to 'Edit', edit_market_path(market) %></td>
         <td><%= link_to 'Destroy', market, method: :delete, data: { confirm: 'Are you sure?' } %></td>

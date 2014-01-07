@@ -11,29 +11,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131223223519) do
-
-  create_table "farms", force: true do |t|
-    t.string   "name"
-    t.string   "location"
-    t.string   "address"
-    t.string   "city"
-    t.string   "state"
-    t.integer  "zip"
-    t.string   "county"
-    t.string   "country"
-    t.string   "owner"
-    t.string   "phone"
-    t.string   "certifications"
-    t.string   "website"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-    t.float    "longitude"
-    t.float    "latitude"
-  end
+ActiveRecord::Schema.define(version: 20140107151522) do
 
   create_table "markets", force: true do |t|
     t.string   "name"
+    t.text     "description"
+    t.string   "image"
     t.string   "website"
     t.string   "street"
     t.string   "city"
@@ -41,32 +24,22 @@ ActiveRecord::Schema.define(version: 20131223223519) do
     t.string   "zip"
     t.float    "latitude"
     t.float    "longitude"
-    t.string   "location"
-    t.boolean  "credit"
-    t.boolean  "cheese"
-    t.boolean  "bakedgoods"
-    t.boolean  "maple"
-    t.boolean  "meat"
-    t.boolean  "nursery"
-    t.boolean  "nuts"
-    t.boolean  "plants"
-    t.boolean  "poultry"
-    t.boolean  "prepared"
-    t.boolean  "soap"
-    t.boolean  "trees"
-    t.boolean  "wine"
-    t.datetime "updatetime"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.boolean  "crafts"
-    t.boolean  "flowers"
-    t.boolean  "eggs"
-    t.boolean  "seafood"
-    t.string   "herbs"
-    t.string   "boolean"
-    t.boolean  "fruitsandvegetables"
-    t.boolean  "honey"
-    t.boolean  "jams"
+  end
+
+  create_table "rankings", force: true do |t|
+    t.integer  "trip_id"
+    t.integer  "market_id"
+    t.integer  "rank"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "trips", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
   end
 
 end

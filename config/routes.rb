@@ -1,12 +1,10 @@
 Marketfinder::Application.routes.draw do
-  resources :farms do
-		collection{ post :import}
-	end
+  resources :trips
 
   resources :markets do
 		collection{ post :import}
 	end
-	root to: 'markets#locate'
+	root to: 'trips#locate'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
