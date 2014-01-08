@@ -18,6 +18,9 @@ class TripsController < ApplicationController
 		fill_markers
 		@markets = Market.near(@local_address, 10) 
   end
+
+	def drop_activity
+	end
 	
 	def locate
 		@trips = Trip.all

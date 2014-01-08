@@ -51,7 +51,11 @@
     <%= f.label :image %><br>
     <%= f.text_field :image %>
   </div>
- <div class="actions">
+  <div class="field">
+    <%= f.label :rating %><br>
+    <%= f.number_field :rating, options={in: 1...6, step:0.5} %>
+  </div>
+  <div class="actions">
     <%= f.submit %>
   </div>
 <% end %>

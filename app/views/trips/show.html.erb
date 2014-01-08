@@ -7,18 +7,19 @@
 	<div class="row">
 		<div class="col-md-12">
 			<div class="page-header">
-				<h1>Trip Planner - Asheville, NC</h1>
+				<h1><%=link_to "Trip Planner - Asheville, NC", root_path %></h1>
 			</div>
 		</div>
 	</div>
 	<div class="row row-offcanvas row-offcanvas-right">
-		<div class="col-md-4">
+		<div class="col-md-5">
 			<h3><%= @trip.name %></h3>
 			<table class="table table-hover">
 			 <thead>
 				<tr>
 				 <th>Name</th>
 				 <th>Description</th>
+				 <th></th>
 				 <th></th>
 				</tr>
 			 </thead>
@@ -29,15 +30,16 @@
 					 <td><%= link_to market.name, market.website %></td>
 					 <td><%= market.description %></td>
 					 <td><%= image_tag(market.image, height:'100px') %></td>
+				 	 <td><%= button_to "Remove", trip_ranking_path(trip_id:@trip.id, market_id:market.id), controller:'rankings', method: :delete, html_options: { class:'btn btn-primary btn-xs' } %></td>
 				 </tr>
 				<% end %>
 			 </tbody>
 			</table>
 		</div>
-		<div class="col-md-8 sidebar-offcanvas" id="sidebar" role="navigation">
+		<div class="col-md-7 sidebar-offcanvas" id="sidebar" role="navigation">
 			<ul class=list-group"><h3>Activities</h3>
 				<% @markets.each do |market| %>
-					<li class="list-group-item"><%=market.name%>: <%=market.description%></li>	
+					<li class="list-group-item"><%= link_to(market.name, trip_rankings_path(@trip, market_id:market.id), method: :create) %></li>
 				<% end %>
 			</ul>
 		</div>

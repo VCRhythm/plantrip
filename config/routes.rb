@@ -1,10 +1,14 @@
 Marketfinder::Application.routes.draw do
-  resources :trips
+  resources :trips do 
+		resources :rankings, only: [:new, :create, :destroy]
+	end
 
   resources :markets do
 		collection{ post :import}
+		get 'rankings', on: :member
 	end
-	root to: 'trips#locate'
+
+	root 'trips#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".
