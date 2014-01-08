@@ -6,7 +6,7 @@ class TripsController < ApplicationController
   def index
     @trips = Trip.all
 		@local_address = "28801"
-		@markets = Market.all
+		@markets = Market.near(@local_address, 10)
 		fill_markers
   end
 
@@ -16,7 +16,7 @@ class TripsController < ApplicationController
 		@local_address = "28801" #request.location.address
 		@markets = @trip.markets
 		fill_markers
-		@markets = Market.near(@local_address, 10) 
+		@markets = Market.all 
   end
 
 	def sort
