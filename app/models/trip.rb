@@ -9,6 +9,6 @@
 #
 
 class Trip < ActiveRecord::Base
-	has_many :rankings
+	has_many :rankings, -> { order("position DESC")}
 	has_many :markets, through: :rankings
 end

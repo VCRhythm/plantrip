@@ -19,9 +19,18 @@ class TripsController < ApplicationController
 		@markets = Market.near(@local_address, 10) 
   end
 
-	def drop_activity
+	def sort
+		@trip = Trip.find(params[:trip_id])
+		@sort_group = params['market'].reverse
+		@markets = @trip.markets
+		@rankings = @trip.rankings
+		@rankings.each do |ranking|
+			ranking.position = @sort_group.index(ranking.market_id.to_s) + 1
+			ranking.save
+		end
+		render :nothing => true
 	end
-	
+
 	def locate
 		@trips = Trip.all
 		@local_address = "28801" #request.location.address

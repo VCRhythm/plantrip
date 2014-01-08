@@ -1,7 +1,8 @@
 Marketfinder::Application.routes.draw do
-  resources :trips do 
-		resources :rankings, only: [:new, :create, :destroy]
-	end
+  resources :trips do
+		resources :rankings
+		post :sort
+	end	
 
   resources :markets do
 		collection{ post :import}

@@ -11,6 +11,7 @@ gem 'sass-rails', '~> 4.0.0'
 gem 'jquery-ui-rails'
 gem 'annotate'
 gem 'gmaps4rails'
+gem 'acts_as_list'
 gem 'geocoder'
 gem 'bootstrap-sass'
 # Use Uglifier as compressor for JavaScript assets

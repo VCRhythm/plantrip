@@ -13,4 +13,5 @@
 class Ranking < ActiveRecord::Base
 	belongs_to :trip
 	belongs_to :market
+	acts_as_list scope: :trip
 end
