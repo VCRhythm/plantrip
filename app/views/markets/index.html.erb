@@ -50,13 +50,13 @@
 </table>
 </div>
 <div>
-<br>
-
+<hr>
 <%= form_tag import_markets_path, multipart:true do%>
 	<%= file_field_tag :file %>
 	<%= submit_tag "Import" %>
 <% end %>
-
+<hr>
+<%= link_to "Export CSV", markets_path(format:"csv") %>
 <script type="text/javascript">
 	handler = Gmaps.build('Google');
 	handler.buildMap({ provider:{}, internal: {id: 'map'}}, function(){

@@ -6,6 +6,10 @@ class MarketsController < ApplicationController
   def index
     @markets = Market.all
 		fill_markers
+		respond_to do |format|
+			format.html
+			format.csv { send_data @markets.to_csv }
+		end
   end
 
 	def import
