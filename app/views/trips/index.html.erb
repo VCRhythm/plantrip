@@ -24,9 +24,9 @@
 						</tr>
 					 </thead>
 
-					 <tbody>
+					 <tbody id="sortable">
 						<% trip.markets.each do |market| %>
-						 <tr>
+						 <tr class="ui-state-default">
 							 <td><%= link_to market.name, market.website %></td>
 							 <td><%= market.description %></td>
 							 <td><%= image_tag(market.image, height:'300px') %></td>
@@ -47,4 +47,9 @@
 
 <script type="text/javascript">
 	buildMap(<%=raw @hash.to_json %>);
+	$(function(){
+		$('#sortable').sortable({
+			revert: true
+		});
+	});
 </script>
