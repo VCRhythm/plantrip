@@ -5,11 +5,18 @@ class TripsController < ApplicationController
   # GET /trips.json
   def index
     @trips = Trip.all
+		@local_address = "28801"
+		@markets = Market.all
+		fill_markers
   end
 
   # GET /trips/1
   # GET /trips/1.json
   def show
+		@local_address = "28801" #request.location.address
+		@markets = @trip.markets
+		fill_markers
+		@markets = Market.near(@local_address, 10) 
   end
 	
 	def locate
