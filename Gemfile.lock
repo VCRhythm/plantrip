@@ -32,6 +32,7 @@ GEM
       rake (>= 0.8.7)
     arel (4.0.1)
     atomic (1.1.14)
+    bcrypt-ruby (3.0.1)
     bootstrap-sass (3.0.3.0)
       sass (~> 3.2)
     builder (3.1.4)
@@ -63,7 +64,7 @@ GEM
     mime-types (1.25.1)
     minitest (4.7.5)
     multi_json (1.8.2)
-    pg (0.17.0)
+    pg (0.17.1)
     polyglot (0.3.3)
     rack (1.5.2)
     rack-test (0.6.2)
@@ -76,6 +77,11 @@ GEM
       bundler (>= 1.3.0, < 2.0)
       railties (= 4.0.0)
       sprockets-rails (~> 2.0.0)
+    rails_12factor (0.0.2)
+      rails_serve_static_assets
+      rails_stdout_logging
+    rails_serve_static_assets (0.0.2)
+    rails_stdout_logging (0.0.3)
     railties (4.0.0)
       actionpack (= 4.0.0)
       activesupport (= 4.0.0)
@@ -122,6 +128,7 @@ PLATFORMS
 DEPENDENCIES
   acts_as_list
   annotate
+  bcrypt-ruby (~> 3.0.0)
   bootstrap-sass
   coffee-rails (~> 4.0.0)
   geocoder
@@ -131,6 +138,7 @@ DEPENDENCIES
   jquery-ui-rails
   pg
   rails (= 4.0.0)
+  rails_12factor
   sass-rails (~> 4.0.0)
   sdoc
   sqlite3
