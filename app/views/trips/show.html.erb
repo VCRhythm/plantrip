@@ -17,6 +17,7 @@
 			<table class="table table-hover">
 			 <thead>
 				<tr>
+				 <th></th>
 				 <th>Name</th>
 				 <th>Description</th>
 				 <th></th>
@@ -27,6 +28,7 @@
 			 <tbody class='sortable'>
 				<% @trip.markets.each do |market| %>
 				 <tr id='market_<%= market.id %>' class="ui-state-default" data-trip_id='<%=@trip.id %>'>
+					 <td class="handle"><%= image_tag("drag_arrow.png", width:'50px')%></td>
 					 <td><%= link_to market.name, market.website %></td>
 					 <td><%= market.description %></td>
 					 <td><%= image_tag(market.image, height:'100px') %></td>
@@ -62,6 +64,7 @@
 			items: 'tr',
 			opacity: 0.4,
 			scroll: true,
+			handle: '.handle',
 			revert: true,
 			update: function(event, ui){
 				var trip_id = ui.item.attr('data-trip_id');
