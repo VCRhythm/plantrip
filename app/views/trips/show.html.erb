@@ -24,9 +24,9 @@
 				</tr>
 			 </thead>
 
-			 <tbody>
+			 <tbody class='sortable'>
 				<% @trip.markets.each do |market| %>
-				 <tr>
+				 <tr id='market_<%= market.id %>' class="ui-state-default" data-trip_id='<%=@trip.id %>'>
 					 <td><%= link_to market.name, market.website %></td>
 					 <td><%= market.description %></td>
 					 <td><%= image_tag(market.image, height:'100px') %></td>
@@ -54,4 +54,27 @@
 
 <script type="text/javascript">
 	buildMap(<%=raw @hash.to_json %>);
+	
+	$(function(){
+		$('.sortable').sortable({
+			dropOnEmpty: false,
+			cursor: 'crosshair',
+			items: 'tr',
+			opacity: 0.4,
+			scroll: true,
+			revert: true,
+			update: function(event, ui){
+				var trip_id = ui.item.attr('data-trip_id');
+				$.ajax({
+					data: $(this).sortable('serialize'),
+					type: 'post',
+					url: '/trips/'+trip_id+'/sort',
+					dataType: 'script',
+					complete: function(request){
+						$('.sortable').effect('highlight');
+					}
+				});
+			}
+		});
+	});
 </script>

@@ -26,7 +26,7 @@
 
 					 <tbody class="sortable">
 						<% trip.markets.each do |market| %>
-						 <tr id='market_<%= market.id %>' class="ui-state-default" data-trip_id='<%=trip.id %>' data-market_id='<%=market.id%>'>
+						 <tr id='market_<%= market.id %>' class="ui-state-default" data-trip_id='<%=trip.id %>' >
 							 <td><%= link_to market.name, market.website %></td>
 							 <td><%= market.description %></td>
 							 <td><%= image_tag(market.image, height:'300px') %></td>
