@@ -13,6 +13,11 @@
 	</div>
 	<div class="row row-offcanvas row-offcanvas-right">
 		<div class="col-md-5">
+			<% flash.each do |name, msg| %>
+				<div class="alert alert-info alert-dismissiable">
+					<center><strong><%= msg %></strong></center>
+				</div>
+			<% end %>
 			<h3><%= @trip.name %></h3>
 			<table class="table table-hover">
 			 <thead>

@@ -6,10 +6,10 @@ class RankingsController < ApplicationController
 
     respond_to do |format|
       if @ranking.save
-        format.html { redirect_to @trip, notice: 'Market was successfully created.' }
+        format.html { redirect_to @trip, notice: 'That activity was successfully added.' }
         format.json { render action: 'show', status: :created, location: @trip }
       else
-        format.html { render action: 'new' }
+        format.html { redirect_to @trip, alert:'That activity is already a part of this trip.' }
         format.json { render json: @ranking.errors, status: :unprocessable_entity }
       end
     end

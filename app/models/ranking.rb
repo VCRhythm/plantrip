@@ -15,4 +15,6 @@ class Ranking < ActiveRecord::Base
 	belongs_to :trip
 	belongs_to :market
 	acts_as_list scope: :trip
+	
+	validates_uniqueness_of :market_id, scope: :trip_id
 end
