@@ -32,16 +32,25 @@
 					 <td><%= link_to market.name, market.website %></td>
 					 <td><%= market.description %></td>
 					 <td><%= image_tag(market.image, height:'100px') %></td>
-				 	 <td><%= button_to "Remove", trip_ranking_path(trip_id:@trip.id, market_id:market.id), controller:'rankings', method: :delete, html_options: { class:'btn btn-primary btn-xs' } %></td>
+				 	 <td><%= button_to "Remove", trip_ranking_path(trip_id:@trip.id, market_id:market.id), method: "delete", class:"btn btn-danger btn-xs" %></td>
 				 </tr>
 				<% end %>
 			 </tbody>
 			</table>
 		</div>
 		<div class="col-md-7 sidebar-offcanvas" id="sidebar" role="navigation">
-			<ul class=list-group"><h3>Activities</h3>
+			<ul class=list-group"><%= button_to "Add", new_market_path, method: "get", class:"btn btn-primary btn-xs pull-right" %>
+			<h3>Activities</h3>
 				<% @markets.each do |market| %>
-					<li class="list-group-item"><%= link_to(market.name, trip_rankings_path(@trip, market_id:market.id), method: :create) %></li>
+					<li class="list-group-item"><%= link_to(market.name, trip_rankings_path(@trip, market_id:market.id), method: "create") %>
+						<% i=0 %>
+						<% for i in 1..market.rating %>	
+							<%= image_tag("star.png", width:'15px') %>
+						<% end %>	
+						<% if i < market.rating %>
+							<%= image_tag("star_half.png", width:'15px') %>
+						<% end %>
+					</li>
 				<% end %>
 			</ul>
 		</div>

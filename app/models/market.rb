@@ -15,6 +15,7 @@
 #  longitude   :float
 #  created_at  :datetime
 #  updated_at  :datetime
+#  rating      :float
 #
 
 class Market < ActiveRecord::Base
@@ -25,6 +26,12 @@ class Market < ActiveRecord::Base
 	has_many :rankings
 	has_many :trips, through: :ranking
 
+	after_initialize :init
+
+	def init
+		self.rating ||= 0.0
+	end
+		
 	def full_address
 		"#{street}, #{city}, #{state} #{zip}"
 	end

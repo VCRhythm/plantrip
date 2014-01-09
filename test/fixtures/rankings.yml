@@ -3,11 +3,12 @@
 # Table name: rankings
 #
 #  id         :integer          not null, primary key
-#  rank       :integer
 #  trip_id    :integer
 #  market_id  :integer
+#  rank       :integer
 #  created_at :datetime
 #  updated_at :datetime
+#  position   :integer
 #
 
 # Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html

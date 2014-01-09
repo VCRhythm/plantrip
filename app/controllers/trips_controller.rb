@@ -16,7 +16,7 @@ class TripsController < ApplicationController
 		@local_address = "28801" #request.location.address
 		@markets = @trip.markets
 		fill_markers
-		@markets = Market.all 
+		@markets = Market.order(rating: :desc, name: :asc)
   end
 
 	def sort
