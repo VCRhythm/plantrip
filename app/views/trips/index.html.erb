@@ -2,7 +2,7 @@
 <script src="//google-maps-utility-library-v3.googlecode.com/svn/tags/markerclustererplus/2.0.14/src/markerclusterer_packed.js" type="text/javascript"></script>
 <script src='//google-maps-utility-library-v3.googlecode.com/svn/trunk/richmarker/src/richmarker-compiled.js' type='text/javascript'></script>
 <script src='//google-maps-utility-library-v3.googlecode.com/svn/tags/infobox/1.1.9/src/infobox_packed.js' type='text/javascript'></script>
-
+<% rownum = 1 %>
 <div class="container">
 	<div class="row col-m-12">
 		<div class="page-header">
@@ -31,18 +31,19 @@
 							 <td class="handle"><%= image_tag("drag_arrow.png", width:'50px')%></td>
 							 <td><%= link_to market.name, market.website %></td>
 							 <td width="478px;">
-							 		<div id='reg_desc_<%=market.id%>'>
-										<span id='desc_<%=market.id%>'><%= html_escape(market.description).gsub(/\n/, '<br />').html_safe %></span><br/><br/><button type="button" data-market-id='<%=market.id %>' class="edit-description btn btn-default">Edit</button>
+							 		<div id='reg_desc_<%=rownum%>'>
+										<span id='desc_<%=rownum%>'><%= html_escape(market.description).gsub(/\n/, '<br />').html_safe %></span><br/><br/><button type="button" data-rownum='<%= rownum %>' class="edit-description btn btn-default">Edit</button>
 									</div>
-									<div id='edit_desc_<%=market.id%>' style='display:none;'>
+									<div id='edit_desc_<%= rownum %>' style='display:none;'>
 										<%= form_for market, remote: true, html: {role: "form"} do |f| %>
 											<%= f.text_area :description, rows: "10", class: "form-control enter-description"%> 
-											<%= f.submit "Update", class:"btn btn-primary update-desc", data: {market_id:market.id}%>
+											<%= f.submit "Update", class:"btn btn-primary update-desc", data: {rownum:rownum}%>
 										<% end %>
 									</div>
 							 </td>
 							 <td><%= image_tag(market.image, height:'300px') %></td>
 						 </tr>
+						<% rownum += 1 %>
 						<% end %>
 					 </tbody>
 					</table>
@@ -62,17 +63,17 @@
 
 	$(function(){
 		$('.edit-description').click(function(){
-			var market_id = $(this).attr("data-market-id");
-			$('#reg_desc_'+market_id).toggle();
-			$('#edit_desc_'+market_id).toggle();
+			var rownum = $(this).attr("data-rownum");
+			$('#reg_desc_'+rownum).toggle();
+			$('#edit_desc_'+rownum).toggle();
 		});
 
 		$('.update-desc').click(function(){
-			var market_id = $(this).attr("data-market-id");
+			var rownum = $(this).attr("data-rownum");
 			var desc = $(this).parent().children('.enter-description').val();
-			$('#desc_'+market_id).html(desc.replace(/\n/g, "<br />"));
-			$('#edit_desc_'+market_id).toggle();
-			$('#reg_desc_'+market_id).toggle();
+			$('#desc_'+rownum).html(desc.replace(/\n/g, "<br />"));
+			$('#edit_desc_'+rownum).toggle();
+			$('#reg_desc_'+rownum).toggle();
 		});
 
 		$('.sortable').sortable({
