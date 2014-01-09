@@ -44,7 +44,7 @@ class MarketsController < ApplicationController
 
     respond_to do |format|
       if @market.save
-        format.html { redirect_to @market, notice: 'Market was successfully created.' }
+        format.html { redirect_to root_url, notice: 'Activity was successfully created.' }
         format.json { render action: 'show', status: :created, location: @market }
       else
         format.html { render action: 'new' }
