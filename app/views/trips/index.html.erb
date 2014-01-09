@@ -30,7 +30,17 @@
 						 <tr id='market_<%= market.id %>' class="ui-state-default" data-trip_id='<%=trip.id %>' >
 							 <td class="handle"><%= image_tag("drag_arrow.png", width:'50px')%></td>
 							 <td><%= link_to market.name, market.website %></td>
-							 <td><%= market.description %></td>
+							 <td width="478px;">
+							 		<div id='reg_desc_<%=market.id%>'>
+										<span id='desc_<%=market.id%>'><%= html_escape(market.description).gsub(/\n/, '<br />').html_safe %></span><br/><br/><button type="button" data-market-id='<%=market.id %>' class="edit-description btn btn-default">Edit</button>
+									</div>
+									<div id='edit_desc_<%=market.id%>' style='display:none;'>
+										<%= form_for market, remote: true, html: {role: "form"} do |f| %>
+											<%= f.text_area :description, rows: "10", class: "form-control enter-description"%> 
+											<%= f.submit "Update", class:"btn btn-primary update-desc", data: {market_id:market.id}%>
+										<% end %>
+									</div>
+							 </td>
 							 <td><%= image_tag(market.image, height:'300px') %></td>
 						 </tr>
 						<% end %>
@@ -51,6 +61,20 @@
 	buildMap(<%=raw @hash.to_json %>);
 
 	$(function(){
+		$('.edit-description').click(function(){
+			var market_id = $(this).attr("data-market-id");
+			$('#reg_desc_'+market_id).toggle();
+			$('#edit_desc_'+market_id).toggle();
+		});
+
+		$('.update-desc').click(function(){
+			var market_id = $(this).attr("data-market-id");
+			var desc = $(this).parent().children('.enter-description').val();
+			$('#desc_'+market_id).html(desc.replace(/\n/g, "<br />"));
+			$('#edit_desc_'+market_id).toggle();
+			$('#reg_desc_'+market_id).toggle();
+		});
+
 		$('.sortable').sortable({
 			dropOnEmpty: false,
 			cursor: 'crosshair',
