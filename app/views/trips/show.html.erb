@@ -47,6 +47,7 @@
 			<ul class=list-group"><%= button_to "Add", new_market_path, method: "get", class:"btn btn-primary btn-xs pull-right" %>
 			<h3>Activities</h3>
 				<% @markets.each do |market| %>
+					<% if !@trip.markets.where(id: market.id).exists? %>
 					<li class="list-group-item"><%= link_to(market.name, trip_rankings_path(@trip, market_id:market.id), method: "create") %>
 						<% i=0 %>
 						<% for i in 1..market.rating %>	
@@ -56,6 +57,7 @@
 							<%= image_tag("star_half.png", width:'15px') %>
 						<% end %>
 					</li>
+					<% end %>
 				<% end %>
 			</ul>
 		</div>
