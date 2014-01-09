@@ -29,7 +29,15 @@
 						<% trip.markets.each do |market| %>
 						 <tr id='market_<%= market.id %>' class="ui-state-default" data-trip_id='<%=trip.id %>' >
 							 <td class="handle"><%= image_tag("drag_arrow.png", width:'50px')%></td>
-							 <td><%= link_to market.name, market.website %></td>
+							 <td><%= link_to market.name, market.website %><br />
+							 		<% i=0 %>
+									<% for i in 1..market.rating %>	
+										<%= image_tag("star.png", width:'15px') %>
+									<% end %>	
+									<% if i < market.rating %>
+										<%= image_tag("star_half.png", width:'15px') %>
+									<% end %>
+							 </td>
 							 <td width="478px;">
 							 		<div id='reg_desc_<%=rownum%>'>
 										<span id='desc_<%=rownum%>'><%= html_escape(market.description).gsub(/\n/, '<br />').html_safe %></span><br/><br/><button type="button" data-rownum='<%= rownum %>' class="edit-description btn btn-default">Edit</button>
