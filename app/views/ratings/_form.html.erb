@@ -1,0 +1,20 @@
+<%= form_for(@rating) do |f| %>
+  <% if @rating.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(@rating.errors.count, "error") %> prohibited this rating from being saved:</h2>
+
+      <ul>
+      <% @rating.errors.full_messages.each do |msg| %>
+        <li><%= msg %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+	<h1><%= @market.name %></h1>
+	<div id="rating_frame">
+		<%= image_tag @market.image, style: 'height:100%;' %>
+		<p style="position:relative; top:-40px;">Yelp: <span id="star"></div></p>
+		<div id="user_star" style="position:relative; top:-20px;"></div>
+	</div>
+<% end %>
+

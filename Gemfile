@@ -13,6 +13,7 @@ gem 'jbuilder', '~> 1.2'
 gem 'bcrypt-ruby', '~> 3.0.0'
 gem 'rails_12factor'
 gem 'bootstrap-sass'
+gem 'devise'
 
 # Use sqlite3 as the database for Active Record
 group :development, :test do

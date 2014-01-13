@@ -4,7 +4,7 @@ class TripsController < ApplicationController
   # GET /trips
   # GET /trips.json
   def index
-    @trips = Trip.all
+    @trips = current_user.trips
 		@local_address = "28801"
 		@markets = Market.near(@local_address, 10)
 		fill_markers
@@ -50,7 +50,7 @@ class TripsController < ApplicationController
   # POST /trips
   # POST /trips.json
   def create
-    @trip = Trip.new(trip_params)
+    @trip = current_user.trips.new(trip_params)
 
     respond_to do |format|
       if @trip.save

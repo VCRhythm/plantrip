@@ -25,6 +25,7 @@ class Market < ActiveRecord::Base
 	
 	has_many :rankings
 	has_many :trips, through: :ranking
+	has_many :ratings
 
 	after_initialize :init
 

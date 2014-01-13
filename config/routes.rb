@@ -1,4 +1,7 @@
 Marketfinder::Application.routes.draw do
+  resources :ratings
+
+  devise_for :users
   resources :trips do
 		resources :rankings
 		post :sort

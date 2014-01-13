@@ -8,10 +8,10 @@ class RichMarkerBuilder extends Gmaps.Google.Builders.Marker
 #		@serviceObject = new RichMarker options
 
 #	rich_marker_options: ->
-#		marker = document.createElement("div")
-#		marker.setAttribute 'class', 'marker_container'
-#		marker.innerHTML = @args.marker_title
-#		{ content: marker }
+		#marker = document.createElement("div")
+		#marker.setAttribute 'class', 'marker_container'
+		#marker.innerHTML = @args.marker_title
+#		{content: marker}
 
 #	create_infowindow: ->
 #		return null unless _.isString @args.infowindow

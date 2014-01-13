@@ -1,0 +1,20 @@
+<%= render 'form' %>
+<script>
+	$('#star').raty({
+		readOnly: true,
+		score: <%= @market.rating %>,
+		path: '/assets'
+	});
+
+	$('#user_star').raty({
+		score: <%= @rating.score %>,
+		path: '/assets',
+		click: function(score, evt) {
+			$.ajax({
+				url: '/ratings',
+				method: 'post',
+				data: { score: score, market: <%= @market.id %> }
+			}).done(function (data){});
+		}
+	});
+</script>
