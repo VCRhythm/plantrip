@@ -50,7 +50,7 @@
 					<% if !@trip.markets.where(id: market.id).exists? %>
 					<li class="list-group-item"><%= link_to(market.name, trip_rankings_path(@trip, market_id:market.id), method: "create") %>
 						<% i=0 %>
-						<% for i in 1..market.rating %>	
+						<% for i in 1..@ratings[market.id] %>	
 							<%= image_tag("star.png", width:'15px') %>
 						<% end %>	
 						<% if i < market.rating %>

@@ -14,11 +14,18 @@ class RatingsController < ApplicationController
 
   # GET /ratings/new
   def new
+		@local_address = "28801"
+		@markets = Market.near(@local_address, 10).order(rating: :desc)
+		i = 0
 		begin
-	 		rand_id = rand(1..Market.count)
-			@market = Market.find(rand_id)
-		end while current_user.ratings.where(market_id:@market.id).exists? 
-    @rating = Rating.new(score:0)
+			@market = @markets[i]
+			i += 1
+		end while i < @markets.length() - 1 and current_user.ratings.where(market_id:@market.id).exists?
+		if i == @markets.length() - 1 and current_user.ratings.where(market_id: @market.id).exists?
+			redirect_to root_url, notice: "You've rated all activities near "+ @local_address+"!"
+		else
+    	@rating = Rating.new(score:0)
+		end
   end
 
   # GET /ratings/1/edit

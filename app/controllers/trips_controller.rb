@@ -5,8 +5,9 @@ class TripsController < ApplicationController
   # GET /trips.json
   def index
     @trips = current_user.trips
-		@local_address = "28801"
+	  @local_address = "28801"
 		@markets = Market.near(@local_address, 10)
+		fill_ratings	
 		fill_markers
   end
 
@@ -16,7 +17,8 @@ class TripsController < ApplicationController
 		@local_address = "28801" #request.location.address
 		@markets = @trip.markets
 		fill_markers
-		@markets = Market.order(rating: :desc, name: :asc)
+		@markets = Market.near(@local_address, 10).order(name: :asc)
+		fill_ratings2
   end
 
 	def sort
@@ -99,6 +101,42 @@ class TripsController < ApplicationController
 				marker.lng market.longitude
 				marker.infowindow market.description
 				marker.title market.name
+			end
+		end
+			
+		def fill_ratings #For 'index'
+			@ratings = Hash.new()
+			@markets.each do |market|
+				user_num = 0
+				@ratings[market.id] = 0
+				@trips.each do |trip|
+					trip.users.each do |user|
+						if add_score = user.ratings.where(market_id:market.id).first
+							@ratings[market.id] += add_score.score
+							user_num += 1
+						end
+						if user_num > 0
+							@ratings[market.id] /= user_num
+						end
+					end
+				end
+			end
+		end
+
+		def fill_ratings2 #For 'show'
+			@ratings = Hash.new()
+			@markets.each do |market|
+				user_num = 0
+				@ratings[market.id] = 0
+				@trip.users.each do |user|
+					if add_score = user.ratings.where(market_id:market.id).first
+						@ratings[market.id] += add_score.score
+						user_num += 1
+					end
+					if user_num > 0
+						@ratings[market.id] /= user_num
+					end
+				end
 			end
 		end
 
