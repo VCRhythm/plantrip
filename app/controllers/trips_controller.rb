@@ -14,7 +14,7 @@ class TripsController < ApplicationController
   # GET /trips/1
   # GET /trips/1.json
   def show
-		@local_address = "28801" #request.location.address
+		@local_address = request.location.address
 		@markets = @trip.markets
 		fill_markers
 		@markets = Market.near(@local_address, 10).order(name: :asc)
