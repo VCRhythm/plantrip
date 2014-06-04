@@ -13,7 +13,10 @@
 				<p id="notice"><%= notice %></p>
 			</div>
 		<% end %>
-		<%= button_to "Rate Activities", new_rating_path, method: :get, class: "btn btn-primary" %>
+		<div class="btn-group">
+			<%= link_to "Rate Activities", new_rating_path(rating:{trip_id: @trip.id}), class: "btn btn-primary", form_class: "pull-left" %>
+			<%= link_to "Add Activities", new_market_path, class: "btn btn-primary", style: "margin-left:5px" %>
+		</div>
 	</div>
 	<div class="row col-m-12">
 		<% @days.each do |day| %>

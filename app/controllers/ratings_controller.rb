@@ -14,14 +14,15 @@ class RatingsController < ApplicationController
 
   # GET /ratings/new
   def new
-		@local_address = "28801"
+    @trip = Trip.find(rating_params['trip_id'])
+    @local_address = @trip.address
 		@markets = Market.near(@local_address, 10).order(rating: :desc)
 		i = 0
 		begin
 			@market = @markets[i]
 			i += 1
 		end while i < @markets.length() - 1 and current_user.ratings.where(market_id:@market.id).exists?
-		if i == @markets.length() - 1 and current_user.ratings.where(market_id: @market.id).exists?
+		if (@markets.length() == 0 ) or (i == @markets.length() - 1 and current_user.ratings.where(market_id: @market.id).exists?)
 			redirect_to root_url, notice: "You've rated all activities near "+ @local_address+"!"
 		else
     	@rating = Rating.new(score:0)
@@ -36,7 +37,6 @@ class RatingsController < ApplicationController
   # POST /ratings.json
   def create
     @rating = current_user.ratings.create(score: params['score'], market_id: params['market'])
-
     render js: %(window.location.pathname='#{new_rating_path}')
   end
 
@@ -72,6 +72,6 @@ class RatingsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def rating_params
- 		 params.require(:rating).permit(:score, :user_id, :market_id)
+ 		 params.require(:rating).permit(:trip_id, :score, :user_id, :market_id)
     end
 end

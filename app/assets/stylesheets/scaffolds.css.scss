@@ -29,6 +29,12 @@ a {
   }
 }
 
+.btn {
+ &:visited{
+  color:white;
+ } 
+}
+
 div {
   &.field, &.actions {
     margin-bottom: 10px;

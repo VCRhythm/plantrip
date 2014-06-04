@@ -6,6 +6,7 @@
 <div class="container">
 	<div class="row col-m-12">
 		<div class="page-header">
+			<%= button_to "New Trip", new_trip_path, method: "get", class:"btn btn-primary btn-xs pull-right" %>
 			<h1>Trip Planner</h1>
 		</div>
 		<% if notice %>

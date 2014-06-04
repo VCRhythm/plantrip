@@ -23,6 +23,8 @@ class Market < ActiveRecord::Base
 	geocoded_by :full_address
 	after_validation :geocode
 	
+	validates :name, presence: true
+
 	has_many :rankings
 	has_many :trips, through: :ranking
 	has_many :ratings

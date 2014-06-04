@@ -1,4 +1,9 @@
+<div class="container">
+	<div class="page-header">
+		<h1><%=link_to "Trip Planner", root_path %> - <%= @trip.name %></h1>
+	</div>
 <%= render 'form' %>
+</div>
 <script>
 	$('#star').raty({
 		size:50,
@@ -15,7 +20,7 @@
 			$.ajax({
 				url: '/ratings',
 				method: 'post',
-				data: { score: score, market: <%= @market.id %> }
+				data: { score: score, market: <%= @market.id %>, trip_id: <%= @trip.id %> }
 			}).done(function (data){});
 		}
 	});
