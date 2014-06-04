@@ -9,8 +9,8 @@ class TripsController < ApplicationController
 		@days = @trip.days
 		@local_address = @trip.address
 		@markets = Market.near(@local_address, 10)
-		#fill_ratings
-		#fill_markers
+		fill_ratings
+		fill_markers
 	end
 
   def new
@@ -79,8 +79,8 @@ class TripsController < ApplicationController
 		@markets.each do |market|
 			user_num = 0
 			@ratings[market.id] = 0
-			@trips.each do |trip|
-				trip.users.each do |user|
+			@days.each do |day|
+				day.trip.users.each do |user|
 					if add_score = user.ratings.where(market_id:market.id).first
 						@ratings[market.id] += add_score.score
 						user_num += 1

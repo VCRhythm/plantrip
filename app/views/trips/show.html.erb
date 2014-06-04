@@ -6,7 +6,7 @@
 <div class="container">
 	<div class="row col-m-12">
 		<div class="page-header">
-			<h1>Trip Planner - <%= @trip.name %></h1>
+			<h1><%=link_to "Trip Planner", root_path %> - <%= @trip.name %></h1>
 		</div>
 		<% if notice %>
 			<div class="alert alert-info alert-dismissiable">

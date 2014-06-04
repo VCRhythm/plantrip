@@ -15,16 +15,15 @@
 		<% end %>
 	</div>
 	<div class="row col-m-12">
-		<% @trips.each do |trip| %>
-			<table class="table table-hover">
-				<thead>
-					<tr>
-						<th>Name</th>
-						<th>Description</th>
-					</tr>
-				</thead>
-
-				<tbody>
+		<table class="table table-hover">
+			<thead>
+				<tr>
+					<th>Name</th>
+					<th>Description</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% @trips.each do |trip| %>
 					<tr>
 						<td><h3><%= trip.name %> <%= link_to "(view)", trip_path(trip) %></h3></td>
 						<td width="478px;">
@@ -39,11 +38,11 @@
 							</div>
 						</td>
 					</tr>
-				</tbody>
-			</table>
-			<% rownum += 1 %>
-		<% end %>
-	</div>	
+					<% rownum += 1 %>
+				<% end %>
+			</tbody>
+		</table>
+	</div>
 </div>
 
 <script type="text/javascript">
