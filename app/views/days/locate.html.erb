@@ -9,10 +9,10 @@
 			<div class="page-header">
 				<h1>Trip Planner - <%= @trip.name %></h1>
 			</div>
-			<% @trips.each do |trip| %>
+			<% @days.each do |day| %>
 				<div class="row">
 					<div class="col-md-6">
-						<h3><%= trip.name %></h3>
+						<h3><%= day.name %></h3>
 						<table class="table table-hover">
 						 <thead>
 							<tr>
@@ -23,7 +23,7 @@
 						 </thead>
 
 						 <tbody>
-							<% trip.markets.each do |market| %>
+							<% day.markets.each do |market| %>
 							 <tr>
 								 <td><%= link_to market.name, market.website %></td>
 								 <td><%= market.description %></td>

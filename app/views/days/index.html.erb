@@ -6,20 +6,21 @@
 <div class="container">
 	<div class="row col-m-12">
 		<div class="page-header">
-			<h1>Trip Planner - <%= @trip.name %></h1>
+			<h1>Trip Planner - <%= trip.name %></h1>
 		</div>
 		<% if notice %>
 			<div class="alert alert-info alert-dismissiable">
 				<p id="notice"><%= notice %></p>
 			</div>
 		<% end %>
+		<%= link_to "\"When you Get to Asheville\"", "http://www.youtube.com/watch?v=4RzhTN9zW3w", target: "blank"%>
 		<%= button_to "Rate Activities", new_rating_path, method: :get, class: "btn btn-primary" %>
 	</div>
 	<div class="row col-m-12">
 		<% @days.each do |day| %>
 			<div class="row">
 				<div class="col-md-12">
-					<h3><%= day.name %> <%= link_to "(view)", trip_day_path(@trip, day) %></h3>
+					<h3><%= day.name %> <%= link_to "(view)", day_path(day) %></h3>
 					<table class="table table-hover">
 					 <thead>
 						<tr>

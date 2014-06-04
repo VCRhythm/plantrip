@@ -12,9 +12,9 @@
 #
 
 class Ranking < ActiveRecord::Base
-	belongs_to :trip
+	belongs_to :day
 	belongs_to :market
-	acts_as_list scope: :trip
+	acts_as_list scope: :day
 	
-	validates_uniqueness_of :market_id, scope: :trip_id
+	validates_uniqueness_of :market_id, scope: :day_id
 end

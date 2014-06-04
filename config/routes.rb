@@ -2,15 +2,19 @@ Marketfinder::Application.routes.draw do
   resources :ratings
 
   devise_for :users
+  
   resources :trips do
-		resources :rankings
-		post :sort
+		resources :days do
+      resources :rankings
+    end
 	end	
 
   resources :markets do
 		collection{ post :import}
 		get 'rankings', on: :member
 	end
+
+  post 'days/:id/sort' => 'days#sort'
 
 	root 'trips#index'
 

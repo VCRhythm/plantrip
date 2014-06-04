@@ -6,75 +6,47 @@
 <div class="container">
 	<div class="row col-m-12">
 		<div class="page-header">
-			<h1>Trip Planner - Asheville, NC</h1>
+			<h1>Trip Planner</h1>
 		</div>
 		<% if notice %>
 			<div class="alert alert-info alert-dismissiable">
 				<p id="notice"><%= notice %></p>
 			</div>
 		<% end %>
-		<%= link_to "\"When you Get to Asheville\"", "http://www.youtube.com/watch?v=4RzhTN9zW3w", target: "blank"%>
-		<%= button_to "Rate Activities", new_rating_path, method: :get, class: "btn btn-primary" %>
 	</div>
 	<div class="row col-m-12">
 		<% @trips.each do |trip| %>
-			<div class="row">
-				<div class="col-md-12">
-					<h3><%= trip.name %> <%= link_to "(view)", trip_path(trip) %></h3>
-					<table class="table table-hover">
-					 <thead>
-						<tr>
-						 <th></th>
-						 <th>Name</th>
-						 <th>Description</th>
-						 <th></th>
-						</tr>
-					 </thead>
+			<table class="table table-hover">
+				<thead>
+					<tr>
+						<th>Name</th>
+						<th>Description</th>
+					</tr>
+				</thead>
 
-					 <tbody class="sortable">
-						<% trip.markets.each do |market| %>
-						 <tr id='market_<%= market.id %>' class="ui-state-default" data-trip_id='<%=trip.id %>' >
-							 <td class="handle"><%= image_tag("drag_arrow.png", width:'50px')%></td>
-							 <td><%= link_to market.name, market.website %><br />
-							 		<% i = 0 %>
-									<% for i in 1..@ratings[market.id] %>	
-										<%= image_tag("star.png", width:'15px') %>
-									<% end %>	
-									<% if i < market.rating %>
-										<%= image_tag("star_half.png", width:'15px') %>
-									<% end %>
-							 </td>
-							 <td width="478px;">
-							 		<div id='reg_desc_<%=rownum%>'>
-										<span id='desc_<%=rownum%>'><%= html_escape(market.description).gsub(/\n/, '<br />').html_safe %></span><br/><br/><button type="button" data-rownum='<%= rownum %>' class="edit-description btn btn-default">Edit</button>
-									</div>
-									<div id='edit_desc_<%= rownum %>' style='display:none;'>
-										<%= form_for market, remote: true, html: {role: "form"} do |f| %>
-											<%= f.text_area :description, rows: "10", class: "form-control enter-description"%> 
-											<%= f.submit "Update", class:"btn btn-primary update-desc", data: {rownum:rownum}%>
-										<% end %>
-									</div>
-							 </td>
-							 <td><%= image_tag(market.image, height:'300px') %></td>
-						 </tr>
-						<% rownum += 1 %>
-						<% end %>
-					 </tbody>
-					</table>
-				</div>
-			</div>
+				<tbody>
+					<tr>
+						<td><h3><%= trip.name %> <%= link_to "(view)", trip_path(trip) %></h3></td>
+						<td width="478px;">
+							<div id='reg_desc_<%=rownum%>'>
+								<span id='desc_<%=rownum%>'><%= html_escape(trip.description).gsub(/\n/, '<br />').html_safe %></span><br/><br/><button type="button" data-rownum='<%= rownum %>' class="edit-description btn btn-default">Edit</button>
+							</div>
+							<div id='edit_desc_<%= rownum %>' style='display:none;'>
+								<%= form_for trip, remote: true, html: {role: "form"} do |f| %>
+									<%= f.text_area :description, rows: "10", class: "form-control enter-description"%> 
+									<%= f.submit "Update", class:"btn btn-primary update-desc", data: {rownum:rownum}%>
+								<% end %>
+							</div>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+			<% rownum += 1 %>
 		<% end %>
 	</div>	
-	
-	<hr>
-	<div class="container">
-		<div id="map" style="height:25em; width:100%;" ></div>
-	</div>
 </div>
 
 <script type="text/javascript">
-	buildMap(<%=raw @hash.to_json %>);
-
 	$(function(){
 		$('.edit-description').click(function(){
 			var rownum = $(this).attr("data-rownum");
@@ -88,29 +60,6 @@
 			$('#desc_'+rownum).html(desc.replace(/\n/g, "<br />"));
 			$('#edit_desc_'+rownum).toggle();
 			$('#reg_desc_'+rownum).toggle();
-		});
-
-		$('.sortable').sortable({
-			dropOnEmpty: false,
-			cursor: 'crosshair',
-			handle: '.handle',
-			items: 'tr',
-			opacity: 0.4,
-			scroll: true,
-			revert: true,
-			update: function(event, ui){
-				var trip_id = ui.item.attr('data-trip_id');
-				var market_id = ui.item.attr('data-market_id');
-				$.ajax({
-					data: $(this).sortable('serialize'),
-					type: 'post',
-					url: '/trips/'+trip_id+'/sort',
-					dataType: 'script',
-					complete: function(request){
-						$('.sortable').effect('highlight');
-					}
-				});
-			}
 		});
 	});
 </script>

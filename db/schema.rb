@@ -11,7 +11,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140113194757) do
+ActiveRecord::Schema.define(version: 20140604191830) do
+
+  create_table "days", force: true do |t|
+    t.string   "name"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "trip_id"
+  end
+
+  add_index "days", ["trip_id"], name: "index_days_on_trip_id"
 
   create_table "markets", force: true do |t|
     t.string   "name"
@@ -30,13 +39,15 @@ ActiveRecord::Schema.define(version: 20140113194757) do
   end
 
   create_table "rankings", force: true do |t|
-    t.integer  "trip_id"
     t.integer  "market_id"
     t.integer  "rank"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "position"
+    t.integer  "day_id"
   end
+
+  add_index "rankings", ["day_id"], name: "index_rankings_on_day_id"
 
   create_table "ratings", force: true do |t|
     t.integer  "user_id"
@@ -47,9 +58,9 @@ ActiveRecord::Schema.define(version: 20140113194757) do
   end
 
   create_table "trips", force: true do |t|
-    t.string   "name"
-    t.datetime "created_at"
-    t.datetime "updated_at"
+    t.string "name"
+    t.string "address"
+    t.text   "description"
   end
 
   create_table "trips_users", force: true do |t|

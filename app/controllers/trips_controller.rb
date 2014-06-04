@@ -1,56 +1,25 @@
 class TripsController < ApplicationController
-  before_action :set_trip, only: [:show, :edit, :update, :destroy]
+  	before_action :set_trip, only: [:show, :edit, :update, :destroy]
 
-  # GET /trips
-  # GET /trips.json
   def index
-    @trips = current_user.trips
-	  @local_address = "28801"
+    	@trips = Trip.all
+	end
+
+	def show
+		@days = @trip.days
+		@local_address = @trip.address
 		@markets = Market.near(@local_address, 10)
-		fill_ratings	
-		fill_markers
-  end
-
-  # GET /trips/1
-  # GET /trips/1.json
-  def show
-		@local_address = request.location.address
-		@markets = @trip.markets
-		fill_markers
-		@markets = Market.near(@local_address, 10).order(name: :asc)
-		fill_ratings2
-  end
-
-	def sort
-		@trip = Trip.find(params[:trip_id])
-		@sort_group = params['market'].reverse
-		@markets = @trip.markets
-		@rankings = @trip.rankings
-		@rankings.each do |ranking|
-			ranking.position = @sort_group.index(ranking.market_id.to_s) + 1
-			ranking.save
-		end
-		render :nothing => true
+		#fill_ratings
+		#fill_markers
 	end
 
-	def locate
-		@trips = Trip.all
-		@local_address = "28801" #request.location.address
-		@markets = Market.near(@local_address, 10) 
-		fill_markers
-	end
-
-  # GET /trips/new
   def new
     @trip = Trip.new
   end
 
-  # GET /trips/1/edit
   def edit
   end
 
-  # POST /trips
-  # POST /trips.json
   def create
     @trip = current_user.trips.new(trip_params)
 
@@ -65,8 +34,6 @@ class TripsController < ApplicationController
     end
   end
 
-  # PATCH/PUT /trips/1
-  # PATCH/PUT /trips/1.json
   def update
     respond_to do |format|
       if @trip.update(trip_params)
@@ -79,8 +46,6 @@ class TripsController < ApplicationController
     end
   end
 
-  # DELETE /trips/1
-  # DELETE /trips/1.json
   def destroy
     @trip.destroy
     respond_to do |format|
@@ -95,40 +60,27 @@ class TripsController < ApplicationController
       @trip = Trip.find(params[:id])
     end
 
-		def fill_markers
-			@hash = Gmaps4rails.build_markers(@markets) do |market, marker|
-				marker.lat market.latitude
-				marker.lng market.longitude
-				marker.infowindow market.description
-				marker.title market.name
-			end
-		end
-			
-		def fill_ratings #For 'index'
-			@ratings = Hash.new()
-			@markets.each do |market|
-				user_num = 0
-				@ratings[market.id] = 0
-				@trips.each do |trip|
-					trip.users.each do |user|
-						if add_score = user.ratings.where(market_id:market.id).first
-							@ratings[market.id] += add_score.score
-							user_num += 1
-						end
-						if user_num > 0
-							@ratings[market.id] /= user_num
-						end
-					end
-				end
-			end
-		end
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def trip_params
+      params.require(:trip).permit(:name, :description)
+    end
 
-		def fill_ratings2 #For 'show'
-			@ratings = Hash.new()
-			@markets.each do |market|
-				user_num = 0
-				@ratings[market.id] = 0
-				@trip.users.each do |user|
+    def fill_markers
+		@hash = Gmaps4rails.build_markers(@markets) do |market, marker|
+			marker.lat market.latitude
+			marker.lng market.longitude
+			marker.infowindow market.description
+			marker.title market.name
+		end
+	end
+		
+	def fill_ratings #For 'index'
+		@ratings = Hash.new()
+		@markets.each do |market|
+			user_num = 0
+			@ratings[market.id] = 0
+			@trips.each do |trip|
+				trip.users.each do |user|
 					if add_score = user.ratings.where(market_id:market.id).first
 						@ratings[market.id] += add_score.score
 						user_num += 1
@@ -139,9 +91,5 @@ class TripsController < ApplicationController
 				end
 			end
 		end
-
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def trip_params
-      params.require(:trip).permit(:name)
-    end
+	end
 end
