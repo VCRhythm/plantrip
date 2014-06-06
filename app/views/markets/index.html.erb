@@ -4,59 +4,53 @@
 <h1>Listing markets</h1>
 
 <div>
-<div style="display:inline-block; width:400px;">
-	<div style='width:400px;'>
-		<div id="map" style='width: 400px; height:400px;'></div>
-	</div>
-</div>
-
-<div style="display:inline-block; width:400px;">
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-			<th>Description</th>
-      <th>Image</th>
-      <th>Street</th>
-      <th>City</th>
-      <th>State</th>
-      <th>Zip</th>
-      <th>Latitude</th>
-      <th>Longitude</th>
-      <th></th>
-      <th></th>
-      <th></th>
-    </tr>
-  </thead>
-
-  <tbody>
-    <% @markets.each do |market| %>
+  <table>
+    <thead>
       <tr>
-        <td><%= link_to market.name, market.website %></td>
-				<td><%= market.description %></td>
-        <td><%= image_tag market.image %></td>
-        <td><%= market.street %></td>
-        <td><%= market.city %></td>
-        <td><%= market.state %></td>
-        <td><%= market.zip %></td>
-        <td><%= market.latitude %></td>
-        <td><%= market.longitude %></td>
-        <td><%= link_to 'Show', market %></td>
-        <td><%= link_to 'Edit', edit_market_path(market) %></td>
-        <td><%= link_to 'Destroy', market, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        <th>Name</th>
+  			<th>Description</th>
+        <th>Image</th>
+        <th>Street</th>
+        <th>City</th>
+        <th>State</th>
+        <th>Zip</th>
+        <th>Latitude</th>
+        <th>Longitude</th>
+        <th></th>
+        <th></th>
+        <th></th>
       </tr>
-    <% end %>
-  </tbody>
-</table>
+    </thead>
+
+    <tbody>
+      <% @markets.each do |market| %>
+        <tr>
+          <td><%= link_to market.name, market.website %></td>
+  				<td><%= market.description %></td>
+          <td><%= image_tag market.image, style: "max-width:100px" %></td>
+          <td><%= market.street %></td>
+          <td><%= market.city %></td>
+          <td><%= market.state %></td>
+          <td><%= market.zip %></td>
+          <td><%= market.latitude %></td>
+          <td><%= market.longitude %></td>
+          <td><%= link_to 'Show', market %></td>
+          <td><%= link_to 'Edit', edit_market_path(market) %></td>
+          <td><%= link_to 'Destroy', market, method: :delete, data: { confirm: 'Are you sure?' } %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
 </div>
 <div>
-<hr>
-<%= form_tag import_markets_path, multipart:true do%>
-	<%= file_field_tag :file %>
-	<%= submit_tag "Import" %>
-<% end %>
-<hr>
-<%= link_to "Export CSV", markets_path(format:"csv") %>
+  <hr>
+  <%= form_tag import_markets_path, multipart:true do%>
+  	<%= file_field_tag :file %>
+  	<%= submit_tag "Import" %>
+  <% end %>
+  <hr>
+  <%= link_to "Export CSV", markets_path(format:"csv") %>
+</div>
 <script type="text/javascript">
 	handler = Gmaps.build('Google');
 	handler.buildMap({ provider:{}, internal: {id: 'map'}}, function(){
